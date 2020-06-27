@@ -1,0 +1,27 @@
+version: "3"
+services:
+  django-app:
+    container_name: django-app
+    build: ./shop
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+     - ./shop:/src
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    container_name: db
+    environment:
+      POSTGRES_DB: "internet-shop"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    volumes:
+      - "./db-data:/var/lib/postgresql/data"
+#  mail:
+#    image: python:3.8
+#    container_name: mail
+#    expose:
+#      - "1025"
+#    command: python -m smtpd -c DebuggingServer -n 0.0.0.0:1025
