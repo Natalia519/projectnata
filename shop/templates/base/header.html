@@ -38,6 +38,9 @@
                                     <li><a href="product_list.html">Wish List </a></li>
                                     <li><a href="cart.html">Shopping</a></li>
                                     <li><a href="cart.html">Cart</a></li>
+                                    <li><a href={% url 'goods:index' %}>Wish List </a></li>
+{#                                    <li><a href={% url 'cart:index' %}>Shopping</a></li>#}
+{#                                    <li><a href={% url 'cart:index' %}>Cart</a></li>#}
                                     {% if user.is_authenticated %}
                                         <li><a href="{% url 'logout' %}?next={{ request.path }}">Checkout</a></li>
                                     {% endif %}
