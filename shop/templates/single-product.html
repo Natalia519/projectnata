@@ -40,9 +40,9 @@
             <div class="col-lg-8">
                 <div class="single_product_text text-center">
                     <h3>{{ goods.productId.name }}</h3>
-                    <p>
-                        {{ goods.productId.description }}
-                    </p>
+{#                    <p>#}
+{#                        {{ goods.productId.description }}#}
+{#                    </p>#}
                     <p>
                         {{ goods.price }}
                     </p>
@@ -50,14 +50,16 @@
                         <div class="product_count_area">
                             <p>Quantity</p>
                             <div class="product_count d-inline-block">
-                                <span class="product_count_item inumber-decrement"> <i class="ti-minus"></i></span>
-                                <input class="product_count_item input-number" type="text" value="1" min="0" max="10">
+                                <span class="product_count_item number-decrement"> <i class="ti-minus"></i></span>
+                                <input class="product_count_item input-number" onchange="valueChange(this.value)" value="1" type="text" min="1" max="{{ goods.quantity }}">
                                 <span class="product_count_item number-increment"> <i class="ti-plus"></i></span>
                             </div>
-                            <p>$5</p>
+                            <p id="{{ goods.productId.name }}"> </p>
                         </div>
                         <div class="add_to_cart">
                             <script type="application/javascript">
+                                var fullPrice = document.getElementById("{{ goods.productId.name }}");
+                                fullPrice.innerHTML = (1 * {{ goods.price }}).toFixed(2)
                                 var csrfcookie = function() {
                                     var cookieValue = null,
                                         name = 'csrftoken';
@@ -73,6 +75,11 @@
                                     }
                                     console.log("cookieValue", cookieValue);
                                     return cookieValue;
+                                };
+
+                                function valueChange(quantity) {
+                                    console.log("valueChange", quantity);
+                                    fullPrice.innerHTML = (quantity * {{ goods.price }}).toFixed(2);
                                 };
 
                                 function cartItemInc() {

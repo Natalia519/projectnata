@@ -19,7 +19,7 @@ class Cart(models.Model):
     created = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
-        return "<{}: {} - {}>".format(self.pk, self.userId.name, self.created)
+        return "<{}: {} - {}>".format(self.pk, self.userId, self.created)
 
 
 class CartItem(models.Model):

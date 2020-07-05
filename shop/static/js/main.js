@@ -259,12 +259,11 @@
     review.owlCarousel({
       items: 1,
       loop: true,
-      dots: true,
       autoplay: true,
       autoplayHoverPause: true,
       autoplayTimeout: 5000,
       nav: true,
-      dots: false,
+      dots: true,
       navText: [" <i class='ti-angle-left'></i> ", "<i class='ti-angle-right'></i> "],
       responsive: {
         0: {
@@ -291,7 +290,6 @@
       autoplayHoverPause: true,
       autoplayTimeout: 5000,
       nav: true,
-      dots: false,
       navText: [" <i class='ti-angle-left'></i> ", "<i class='ti-angle-right'></i> "],
       responsive: {
         0: {
@@ -452,19 +450,21 @@
       
         window.inputNumber = function(el) {
 
-          var min = el.attr('min') || false;
-          var max = el.attr('max') || false;
-
-          var els = {};
-
-          els.dec = el.prev();
-          els.inc = el.next();
+          console.log("inputNumber", el);
 
           el.each(function() {
+            console.log($(this));
             init($(this));
           });
 
           function init(el) {
+            var min = el.attr('min') || false;
+            var max = el.attr('max') || false;
+
+            var els = {};
+
+            els.dec = el.prev();
+            els.inc = el.next();
 
             els.dec.on('click', decrement);
             els.inc.on('click', increment);
@@ -475,6 +475,8 @@
               if(!min || value >= min) {
                 el[0].value = value;
               }
+              el[0].onchange();
+              console.log("this.calc_count", value);
             }
 
             function increment() {
@@ -483,6 +485,8 @@
               if(!max || value <= max) {
                 el[0].value = value++;
               }
+              el[0].onchange();
+              console.log("this.calc_count", value);
             }
           }
         }

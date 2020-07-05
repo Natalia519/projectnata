@@ -259,7 +259,6 @@
     review.owlCarousel({
       items: 1,
       loop: true,
-      dots: true,
       autoplay: true,
       autoplayHoverPause: true,
       autoplayTimeout: 5000,
@@ -286,7 +285,6 @@
     product_slide.owlCarousel({
       items: 1,
       loop: true,
-      dots: true,
       autoplay: true,
       autoplayHoverPause: true,
       autoplayTimeout: 5000,
@@ -451,7 +449,7 @@
       (function() {
       
         window.inputNumber = function(el) {
-
+          console.log(el);
           var min = el.attr('min') || false;
           var max = el.attr('max') || false;
 
@@ -459,8 +457,9 @@
 
           els.dec = el.prev();
           els.inc = el.next();
-
+          el.forEach(el => console.log('el',el));
           el.each(function() {
+            console.log($(this));
             init($(this));
           });
 
@@ -475,6 +474,7 @@
               if(!min || value >= min) {
                 el[0].value = value;
               }
+              console.log('decrement:',value);
             }
 
             function increment() {
@@ -483,6 +483,7 @@
               if(!max || value <= max) {
                 el[0].value = value++;
               }
+              console.log('increment:',value);
             }
           }
         }
@@ -490,12 +491,10 @@
 
       inputNumber($('.input-number'));
 
-
-
         setInterval(function () {
           makeTimer();
         }, 1000);
-      
+
 
       $('.select_option_dropdown').hide();
       $(".select_option_list").click(function () {
@@ -511,7 +510,7 @@
 
       $('.controls').on('click', function(){
         $(this).addClass('active').siblings().removeClass('active');
-      }); 
+      });
 
 
 /* ----------------- Other Inner page End ------------------ */

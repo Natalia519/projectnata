@@ -35,9 +35,9 @@
                                         <li><a href="{% url 'userprofile:index' %}" target="_blank">My Account </a></li>
                                         <!--                                        <li><a href="my_account.html">My Account </a></li> -->
                                     {% endif %}
-                                    <li><a href="product_list.html">Wish List </a></li>
-                                    <li><a href="cart.html">Shopping</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
+                                    <li><a href={% url 'goods:index' %}>Wish List </a></li>
+                                    <li><a href={% url 'cart:index' 0 %}>Shopping</a></li>
+                                    <li><a href={% url 'cart:index' 0 %}>Cart</a></li>
                                     <li><a href={% url 'goods:index' %}>Wish List </a></li>
 {#                                    <li><a href={% url 'cart:index' %}>Shopping</a></li>#}
 {#                                    <li><a href={% url 'cart:index' %}>Cart</a></li>#}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaultfilters import register
 
 
 class Product(models.Model):
@@ -39,3 +40,10 @@ class Goods(models.Model):
 
     class Meta:
         verbose_name_plural = "goods"
+
+
+@register.filter
+def multiply(value, arg, arg2):
+    if arg > arg2:
+        return value * arg
+    return value * arg2
