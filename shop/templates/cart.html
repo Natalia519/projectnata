@@ -10,9 +10,45 @@
       <div class="cart_inner">
         <div class="table-responsive">
             <script type="application/javascript">
-                function valueChange(quantity, price, id) {
-                    console.log("valueChange", quantity, price, id);
-                    document.getElementById(id).innerHTML = (quantity * price).toFixed(2);
+                var csrfcookie = function() {
+                    var cookieValue = null,
+                        name = 'csrftoken';
+                    if (document.cookie && document.cookie !== '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = cookies[i].trim();
+                            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                };
+
+                function valueChange(quantity, goodsId, id) {
+                    quantity = quantity*1
+                    if (quantity > (document.getElementById(goodsId).max * 1)) {
+                        console.log(quantity, (document.getElementById(goodsId).max * 1));
+                        quantity = (document.getElementById(goodsId).max * 1);
+                        document.getElementById(goodsId).value = quantity;
+                    }
+                    if (quantity < (document.getElementById(goodsId).min * 1)) {
+                        console.log(quantity, document.getElementById(goodsId).min);
+                        quantity = (document.getElementById(goodsId).min * 1);
+                        document.getElementById(goodsId).value = quantity;
+                    }
+                    const http = new XMLHttpRequest();
+                    http.open('POST', '/cart/'+(quantity*1).toFixed(0)+'/item/incdec/'+(goodsId*1).toFixed(0)+'/');
+                    http.setRequestHeader('Content-type', 'application/json');
+                    http.setRequestHeader('X-CSRFToken', csrfcookie());
+                    http.send(JSON.stringify({})); // Make sure to stringify
+                    http.onload = function() {
+                        let r = JSON.parse(http.response);
+                        document.getElementById(goodsId).value = (r.quantity*1).toFixed(0);
+                        document.getElementById(id).innerHTML = r.item;
+                        document.getElementById('subtotal').innerHTML = r.full;
+                    }
                 };
 
             </script>
@@ -44,7 +80,7 @@
                 <td>
                   <div class="product_count">
                     <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                    <input class="input-number" type="text" value="{{ item.quantity }}" onchange='valueChange(this.value, {{ item.price }}, "{{ item.product.name }}")' min="0" max="{{ item.goods.quantity }}">
+                    <input id="{{ item.product.pk }}" class="input-number" type="text" value="{{ item.quantity }}" onchange='valueChange( this.value, {{ item.product.pk }}, "{{ item.product.name }}")' min="0" max="{{ item.goods.quantity }}">
                     <span class="input-number-increment"> <i class="ti-plus"></i></span>
                   </div>
                 </td>

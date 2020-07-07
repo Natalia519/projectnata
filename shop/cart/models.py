@@ -16,7 +16,6 @@ class Cart(models.Model):
     employeeUserId = models.ForeignKey(User, on_delete=models.PROTECT, related_name='employeeUserId')
     comment = models.CharField(max_length=255)
     created = models.DateTimeField(auto_now_add=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True, blank=True)
 
     def __str__(self):
         return "<{}: {} - {}>".format(self.pk, self.userId, self.created)

@@ -449,11 +449,7 @@
       (function() {
       
         window.inputNumber = function(el) {
-
-          console.log("inputNumber", el);
-
           el.each(function() {
-            console.log($(this));
             init($(this));
           });
 
@@ -476,25 +472,21 @@
                 el[0].value = value;
               }
               el[0].onchange();
-              console.log("this.calc_count", value);
             }
 
             function increment() {
               var value = el[0].value;
               value++;
               if(!max || value <= max) {
-                el[0].value = value++;
+                el[0].value = value;
               }
               el[0].onchange();
-              console.log("this.calc_count", value);
             }
           }
         }
       })();
 
       inputNumber($('.input-number'));
-
-
 
         setInterval(function () {
           makeTimer();
