@@ -60,6 +60,7 @@
                             <script type="application/javascript">
                                 var fullPrice = document.getElementById("{{ goods.productId.name }}");
                                 fullPrice.innerHTML = (1 * {{ goods.price }}).toFixed(2)
+                                var q = 1;
                                 var csrfcookie = function() {
                                     var cookieValue = null,
                                         name = 'csrftoken';
@@ -79,16 +80,17 @@
 
                                 function valueChange(quantity) {
                                     console.log("valueChange", quantity);
+                                    q = quantity;
                                     fullPrice.innerHTML = (quantity * {{ goods.price }}).toFixed(2);
                                 };
 
                                 function cartItemInc() {
                                     // Form fields, see IDs above
                                     const http = new XMLHttpRequest()
-                                    http.open('GET', "{% url 'cart:cartItemAdd' goods.id %}")
-                                    // http.open('POST', "{% url 'cart:cartItemAdd' goods.id %}")
+                                    {#http.open('GET', "{% url 'cart:cartItemAdd' goods.id %}")#}
+                                    http.open('POST', "/cart/item/add/{{goods.id}}/"+(q*1).toFixed(0)+"/")
                                     http.setRequestHeader('Content-type', 'application/json')
-                                    // http.setRequestHeader('X-CSRFToken', csrfcookie());
+                                    http.setRequestHeader('X-CSRFToken', csrfcookie());
                                     http.send(JSON.stringify({})) // Make sure to stringify
                                     http.onload = function() {
                                         // Do whatever with response

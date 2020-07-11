@@ -43,15 +43,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="single_sedebar">
-                            <div class="select_option">
-                                <div class="select_option_list">Type <i class="right fas fa-caret-down"></i> </div>
-                                <div class="select_option_dropdown">
-                                    <p><a href="#">Indoor</a></p>
-                                    <p><a href="#">Outdoor</a></p>
-                                    <p><a href="#">Home decorations</a></p></div>
-                            </div>
-                        </div>
+{#                        <div class="single_sedebar">#}
+{#                            <div class="select_option">#}
+{#                                <div class="select_option_list">Type <i class="right fas fa-caret-down"></i> </div>#}
+{#                                <div class="select_option_dropdown">#}
+{#                                    <p><a href="#">Indoor</a></p>#}
+{#                                    <p><a href="#">Outdoor</a></p>#}
+{#                                    <p><a href="#">Home decorations</a></p></div>#}
+{#                            </div>#}
+{#                        </div>#}
                     </div>
                 </div>
                 <div class="col-md-8">
@@ -59,11 +59,13 @@
                         <div class="row">
                             {% for goods in goods_list %}
                             <div class="col-lg-6 col-sm-6">
-                                <div class="single_product_item">
-                                    <img src="{{ goods.productId.image.url }}" alt="" class="img-fluid">
-                                    <h3> <a href="{% url 'goods:details' goods.id %}">{{ goods.productId.name }}</a> </h3>
-                                    <p>{{ goods.price }}</p>
-                                </div>
+                                <a href="{% url 'goods:details' goods.id %}">
+                                    <div class="single_product_item">
+                                        <img src="{{ goods.productId.image.url }}" width="250" height="250" alt="" class="img-fluid">
+                                        <h3> {{ goods.productId.name }} </h3>
+                                        <p>{{ goods.price }}</p>
+                                    </div>
+                                </a>
                             </div>
                             {% endfor %}
                         </div>

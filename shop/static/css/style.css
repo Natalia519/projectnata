@@ -3709,7 +3709,7 @@ input:focus {
 /* line 224, ../../SAIFUL/Running_project/250 eCommerce_HTML/250 eCommerce_HTML/250 eCommerce_HTML/assets/scss/_headerMenu.scss */
 .header-bottom .header-right .shopping-card::before {
   position: absolute;
-  content: "02";
+  content: attr(data-before);
   width: 25px;
   height: 25px;
   background: #00b1ff;
@@ -9060,7 +9060,29 @@ input:focus {
 /* line 12, ../../SAIFUL/Running_project/250 eCommerce_HTML/250 eCommerce_HTML/250 eCommerce_HTML/assets/scss/_trending_items.scss */
 .single_product_item {
   margin-bottom: 58px;
+  align-content: center;
+  text-align: center;
 }
+
+               /*.LockOff {*/
+               /*   display: none;*/
+               /*   visibility: hidden;*/
+               /*}*/
+
+               /*.LockOn {*/
+               /*   display: block;*/
+               /*   visibility: visible;*/
+               /*   position: absolute;*/
+               /*   z-index: 999;*/
+               /*   top: 0px;*/
+               /*   left: 0px;*/
+               /*   width: 105%;*/
+               /*   height: 105%;*/
+               /*   background-color: #ccc;*/
+               /*   text-align: center;*/
+               /*   filter: alpha(opacity=75);*/
+               /*   opacity: 0.75;*/
+               /*}*/
 
 @media (max-width: 991px) {
   /* line 12, ../../SAIFUL/Running_project/250 eCommerce_HTML/250 eCommerce_HTML/250 eCommerce_HTML/assets/scss/_trending_items.scss */

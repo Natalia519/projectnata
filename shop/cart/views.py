@@ -36,11 +36,17 @@ class CartView(View):
             if cart_id != None:
                 cart = Cart.objects.get(pk=cart_id)
             else:
-                cart = Cart.objects.get(userId=user_id)
+                index = 0
+                carts_all = Cart.objects.filter(userId=user_id)
+                for v in carts_all:
+                    if index < v.pk:
+                        index = v.pk
+                        cart = v
                 cart_id = cart.pk
         except ObjectDoesNotExist as e:
             logger.debug("exception: %s", e)
             cart = None
+        request.session['cart_id'] = cart_id
         logger.debug("cart: %s", cart)
         try:
             cart_items = CartItem.objects.filter(cartId=cart_id)
@@ -77,10 +83,10 @@ class CartView(View):
 
 
 @login_required
-def cart_item_add(request, goods_id):
+def cart_item_add(request, goods_id, quantity):
     cart = None
     cart_id = request.session.get("cart_id", None)
-    logger.debug("cart_item_add cart_id: %s, goods_id: %s", cart_id, goods_id)
+    logger.debug("cart_item_add cart_id: %s, goods_id: %s, quantity: %s", cart_id, goods_id, quantity)
 
     try:
         cart = Cart.objects.get(pk=cart_id)
@@ -101,18 +107,22 @@ def cart_item_add(request, goods_id):
     price = goods.price
 
     try:
-        cart_item = CartItem.objects.get(goodsId=goods_id)
-        cart_item.quantity += 1
+        cart_item = CartItem.objects.get(goodsId=goods_id, cartId=cart_id)
+        cart_item.quantity += quantity
     except ObjectDoesNotExist as e:
         cart_item = None
 
+    logger.debug("cart %s", cart)
     if not cart_item:
         cart_item = CartItem(
             cartId=cart,
             goodsId=goods,
-            quantity=1,
+            quantity=quantity,
             price=price
         )
+        logger.debug("create cart_item")
+
+    logger.debug("goods_id %s cart_item %s", goods_id, cart_item)
     cart_item.save()
 
     return HttpResponse(
@@ -123,10 +133,10 @@ def cart_item_add(request, goods_id):
 
 
 @login_required
-def cart_item_inc_dec(request, quantity, goodsId):
+def cart_item_inc_dec(request, goodsId, quantity):
     cart_id = request.session.get("cart_id", None)
     logger.debug("cart_item_inc cartId: %s, goodsId: %s, quantity: %s", cart_id, goodsId, quantity)
-    if request.method == "POST" or request.method == "GET":
+    if request.method == "POST":
         try:
             cart = Cart.objects.get(pk=cart_id)
         except ObjectDoesNotExist as e:

@@ -7,11 +7,11 @@ from django.views import generic
 
 # @login_required()
 def index(request):
-    # if request.user.is_authenticated:
-    #     return render(request, 'index.html', {})
-    # else:
+    if request.user.is_authenticated:
+        return render(request, 'index.html', {})
+    else:
     #     return HttpResponsePermanentRedirect("/accounts/login/")
-    return render(request, 'index.html', {})
+        return render(request, 'index.html', {})
 
 # class IndexView(generic.ListView):
 #     template_name = 'index.html'

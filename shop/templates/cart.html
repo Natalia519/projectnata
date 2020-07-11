@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block content %}
-
     <main>
   <!--================Cart Area =================-->
   <section class="cart_area section_padding">
     <div class="container">
       <div class="cart_inner">
+{#        <div id="skm_LockPane" class="LockOff">    </div>#}
         <div class="table-responsive">
             <script type="application/javascript">
                 var csrfcookie = function() {
@@ -25,7 +25,16 @@
                     }
                     return cookieValue;
                 };
-
+                {#function skm_LockScreen(str) {#}
+                {#    var lock = document.getElementById('skm_LockPane');#}
+                {#    if (lock) lock.className = 'LockOn';#}
+                {#    lock.innerHTML = str;#}
+                {# };#}
+                {#function skm_LockOffScreen() {#}
+                {#    var lock = document.getElementById('skm_LockPane');#}
+                {#    if (lock) lock.className = 'LockOff';#}
+                {#    lock.innerHTML = "";#}
+                {#};#}
                 function valueChange(quantity, goodsId, id) {
                     quantity = quantity*1
                     if (quantity > (document.getElementById(goodsId).max * 1)) {
@@ -38,16 +47,19 @@
                         quantity = (document.getElementById(goodsId).min * 1);
                         document.getElementById(goodsId).value = quantity;
                     }
+                    {#skm_LockScreen('Updating data on backend...');#}
                     const http = new XMLHttpRequest();
                     http.open('POST', '/cart/'+(quantity*1).toFixed(0)+'/item/incdec/'+(goodsId*1).toFixed(0)+'/');
                     http.setRequestHeader('Content-type', 'application/json');
                     http.setRequestHeader('X-CSRFToken', csrfcookie());
                     http.send(JSON.stringify({})); // Make sure to stringify
+
                     http.onload = function() {
                         let r = JSON.parse(http.response);
                         document.getElementById(goodsId).value = (r.quantity*1).toFixed(0);
                         document.getElementById(id).innerHTML = r.item;
                         document.getElementById('subtotal').innerHTML = r.full;
+                        {#skm_LockOffScreen();#}
                     }
                 };
 
@@ -220,10 +232,11 @@
           </table>
           <div class="checkout_btn_inner float-right">
             <a class="btn_1" href="#">Continue Shopping</a>
-            <a class="btn_1 checkout_btn_1" href="#">Proceed to checkout</a>
+            <a class="btn_1 checkout_btn_1" href="#">Proceed to LogOut</a>
           </div>
         </div>
       </div>
+    </div>
   </section>
   <!--================End Cart Area =================-->
     </main>

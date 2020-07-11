@@ -10,6 +10,7 @@ class CartState(models.Model):
         return self.name
 
 
+
 class Cart(models.Model):
     docStateId = models.ForeignKey(CartState, on_delete=models.PROTECT)
     userId = models.ForeignKey(User, on_delete=models.PROTECT, related_name='userId')
