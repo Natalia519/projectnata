@@ -7,11 +7,13 @@ from django.views import generic
 
 # @login_required()
 def index(request):
+    itemsCount = request.session.get("itemsCount", 0)
+    cart_id = request.session.get("cart_id", 0)
     if request.user.is_authenticated:
-        return render(request, 'index.html', {})
+        return render(request, 'index.html', {'itemsCount': itemsCount, 'cartId': cart_id})
     else:
     #     return HttpResponsePermanentRedirect("/accounts/login/")
-        return render(request, 'index.html', {})
+        return render(request, 'index.html', {'itemsCount': itemsCount, 'cartId': cart_id})
 
 # class IndexView(generic.ListView):
 #     template_name = 'index.html'

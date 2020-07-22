@@ -23,7 +23,9 @@
                                     <p data-animation="fadeInRight" data-delay=".8s">Best Cloth Collection By 2020!</p>
                                     <!-- Hero-btn -->
                                     <div class="hero__btn" data-animation="fadeInRight" data-delay="1s">
-                                        <a href="industries.html" class="btn hero-btn">Shop Now</a>
+                                        <ul class="d-none d-lg-block d-flex justify-content-between">
+                                            <li class="d-none d-lg-block"><a href={% url 'goods:index' %} class="btn header-btn">Shop Now</a></li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -44,9 +46,12 @@
                                     <h1 data-animation="fadeInRight" data-delay=".6s">Winter <br> Collection</h1>
                                     <p data-animation="fadeInRight" data-delay=".8s">Best Cloth Collection By 2020!</p>
                                     <!-- Hero-btn -->
-                                    <div class="hero__btn" data-animation="fadeInRight" data-delay="1s">
-                                        <a href="industries.html" class="btn hero-btn">Shop Now</a>
-                                    </div>
+{#                                    <div class="hero__btn" data-animation="fadeInRight" data-delay="1s">#}
+{#                                      {% if not user.is_authenticated %}#}
+{#                                        <li class="d-none d-lg-block"><a href={% url 'userprofile:index' %} class="btn header-btn">Shop Now 2</a></li>#}
+{#                                      {% endif %}#}
+{#                                        <h2> <a href={% url 'userprofile:index' %}>Shop Now</a> </h2>#}
+{#                                    </div>#}
                                 </div>
                             </div>
                         </div>

@@ -21,11 +21,6 @@
       });
     };
 
-/* --- setCartItemNumber */
-    function setCartItemNumber(n) {
-      $('.shopping-card').attr('data-before',n);
-    }
-
 /* 3. MainSlider-1 */
     function mainSlider() {
       var BasicSlider = $('.slider-active');

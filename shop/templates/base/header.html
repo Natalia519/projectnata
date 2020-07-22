@@ -41,7 +41,7 @@
 {#                                    <li><a href={% url 'cart:index' %}>Cart</a></li>#}
                                     {% if user.is_authenticated %}
                                        <li><a href={% url 'cart:index' 0 %}>Cart</a></li>
-                                       <li><a href={% url 'logout' %}?next={{ request.path }}">LogOut</a></li>
+                                       <li><a href={% url 'logout' %}?next={{ request.path }}>LogOut</a></li>
                                     {% endif %}
                                 </ul>
                             </div>

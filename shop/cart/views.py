@@ -1,5 +1,6 @@
 import logging
 
+from django.template import RequestContext
 from django.core.serializers import json
 from django.shortcuts import render
 from django.template.defaultfilters import register
@@ -46,7 +47,7 @@ class CartView(View):
         except ObjectDoesNotExist as e:
             logger.debug("exception: %s", e)
             cart = None
-        request.session['cart_id'] = cart_id
+        request.session['cartId'] = cart_id
         logger.debug("cart: %s", cart)
         try:
             cart_items = CartItem.objects.filter(cartId=cart_id)
@@ -65,9 +66,8 @@ class CartView(View):
         cartout = objector()
         cartout.full = full
         cartout.items = cart_items
-        logger.debug("cart_item 2: %s", cart_items)
-
-        return render(request, self.template_name, {'cartout': cartout})
+        request.session['itemsCount'] = len(cart_items)
+        return render(request, self.template_name, {'out': cartout, 'itemsCount': len(cart_items), 'cartId': cart_id})
 
     def post(self, request, pk):
         logger.debug("POST debug %s", pk)

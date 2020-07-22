@@ -10,6 +10,7 @@
 {#        <div id="skm_LockPane" class="LockOff">    </div>#}
         <div class="table-responsive">
             <script type="application/javascript">
+                {#$('.shopping-card').attr('data-before',10);#}
                 var csrfcookie = function() {
                     var cookieValue = null,
                         name = 'csrftoken';
@@ -34,7 +35,7 @@
                 {#    var lock = document.getElementById('skm_LockPane');#}
                 {#    if (lock) lock.className = 'LockOff';#}
                 {#    lock.innerHTML = "";#}
-                {#};#}
+                {# ;#}
                 function valueChange(quantity, goodsId, id) {
                     quantity = quantity*1
                     if (quantity > (document.getElementById(goodsId).max * 1)) {
@@ -62,7 +63,6 @@
                         {#skm_LockOffScreen();#}
                     }
                 };
-
             </script>
           <table class="table">
             <thead>
@@ -74,7 +74,7 @@
               </tr>
             </thead>
             <tbody>
-            {% for item in cartout.items %}
+            {% for item in out.items %}
                 <tr>
                 <td>
                   <div class="media">
@@ -180,7 +180,7 @@
                   <h5>Subtotal</h5>
                 </td>
                 <td>
-                  <h5 id="subtotal">{{ cartout.full }}</h5>
+                  <h5 id="subtotal">{{ out.full }}</h5>
                 </td>
               </tr>
 {#              <tr class="shipping_area">#}
