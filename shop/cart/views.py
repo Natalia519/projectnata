@@ -47,7 +47,7 @@ class CartView(View):
         except ObjectDoesNotExist as e:
             logger.debug("exception: %s", e)
             cart = None
-        request.session['cartId'] = cart_id
+        request.session['cart_id'] = cart_id
         logger.debug("cart: %s", cart)
         try:
             cart_items = CartItem.objects.filter(cartId=cart_id)
@@ -57,17 +57,23 @@ class CartView(View):
 
         logger.debug("cart_item: %s", cart_items)
         full = 0
+        cart_items_out = []
         for i in range(len(cart_items)):
-            cart_items[i].product = Product.objects.get(name=cart_items[i].goodsId)
-            cart_items[i].quantity = int(cart_items[i].quantity)
-            cart_items[i].goods = Goods.objects.get(productId=cart_items[i].product.pk)
-            full = full + cart_items[i].quantity * cart_items[i].price
+            if int(cart_items[i].quantity) == 0:
+                CartItem.objects.filter(pk=cart_items[i].pk).delete()
+            else:
+                cart_items[i].product = Product.objects.get(name=cart_items[i].goodsId)
+                cart_items[i].quantity = int(cart_items[i].quantity)
+                cart_items[i].goods = Goods.objects.get(productId=cart_items[i].product.pk)
+                cart_items_out.append(cart_items[i])
+                full = full + cart_items[i].quantity * cart_items[i].price
         objector = type('objector', (object,), {})
         cartout = objector()
         cartout.full = full
-        cartout.items = cart_items
-        request.session['itemsCount'] = len(cart_items)
-        return render(request, self.template_name, {'out': cartout, 'itemsCount': len(cart_items), 'cartId': cart_id})
+        cartout.items = cart_items_out
+        request.session['cart_id'] = cart_id
+        request.session['itemsCount'] = len(cart_items_out)
+        return render(request, self.template_name, {'out': cartout, 'itemsCount': len(cart_items_out), 'cart_id': cart_id})
 
     def post(self, request, pk):
         logger.debug("POST debug %s", pk)
@@ -124,18 +130,23 @@ def cart_item_add(request, goods_id, quantity):
 
     logger.debug("goods_id %s cart_item %s", goods_id, cart_item)
     cart_item.save()
+    try:
+        cart_items = CartItem.objects.filter(cartId=cart_id)
 
-    return HttpResponse(
-        {
-            cart_item: cart_item.pk
-        },
-        content_type='application/json')
+    except ObjectDoesNotExist as e:
+        logger.debug("exception: %s", e)
+        cart_items = None
+
+    itemsCount = len(cart_items)
+    request.session['itemsCount'] = itemsCount
+    request.session['cart_id'] = cart_id
+    return JsonResponse({'cart_item': cart_item.pk, 'cart_id': cart_id, 'itemsCount': itemsCount})
 
 
 @login_required
 def cart_item_inc_dec(request, goodsId, quantity):
     cart_id = request.session.get("cart_id", None)
-    logger.debug("cart_item_inc cartId: %s, goodsId: %s, quantity: %s", cart_id, goodsId, quantity)
+    logger.debug("cart_item_inc cart_id: %s, goodsId: %s, quantity: %s", cart_id, goodsId, quantity)
     if request.method == "POST":
         try:
             cart = Cart.objects.get(pk=cart_id)
@@ -171,3 +182,58 @@ def cart_item_inc_dec(request, goodsId, quantity):
             full = full + cart_items[i].quantity * cart_items[i].price
     logger.debug("out.full: %s, out.item: %s", full, item)
     return JsonResponse({'full': full, 'item': item, 'quantity': quantity})
+
+
+@login_required
+def cart_update(request, goods_id, quantity):
+    cart = None
+    cart_id = request.session.get("cart_id", None)
+    logger.debug("cart_item_add cart_id: %s, goods_id: %s, quantity: %s", cart_id, goods_id, quantity)
+
+    try:
+        cart = Cart.objects.get(pk=cart_id)
+    except ObjectDoesNotExist as e:
+        cart_id = None
+
+    if not cart_id:
+        cart = Cart(
+            docStateId=CartState.objects.get(pk=0),
+            userId=User.objects.get(pk=request.user.id),
+            employeeUserId=User.objects.get(pk=request.user.id),
+            comment="New order")
+        cart.save()
+        cart_id = cart.pk
+        request.session["cart_id"] = cart_id
+
+    goods = Goods.objects.get(pk=goods_id)
+    price = goods.price
+
+    try:
+        cart_item = CartItem.objects.get(goodsId=goods_id, cartId=cart_id)
+        cart_item.quantity += quantity
+    except ObjectDoesNotExist as e:
+        cart_item = None
+
+    logger.debug("cart %s", cart)
+    if not cart_item:
+        cart_item = CartItem(
+            cartId=cart,
+            goodsId=goods,
+            quantity=quantity,
+            price=price
+        )
+        logger.debug("create cart_item")
+
+    logger.debug("goods_id %s cart_item %s", goods_id, cart_item)
+    cart_item.save()
+    try:
+        cart_items = CartItem.objects.filter(cartId=cart_id)
+
+    except ObjectDoesNotExist as e:
+        logger.debug("exception: %s", e)
+        cart_items = None
+
+    itemsCount = len(cart_items)
+    request.session['itemsCount'] = itemsCount
+    request.session['cart_id'] = cart_id
+    return JsonResponse({'cart_item': cart_item.pk, 'cart_id': cart_id, 'itemsCount': itemsCount})

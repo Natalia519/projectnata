@@ -56,49 +56,57 @@
                             </div>
                             <p id="{{ goods.productId.name }}"> </p>
                         </div>
-                        <div class="add_to_cart">
-                            <script type="application/javascript">
-                                var fullPrice = document.getElementById("{{ goods.productId.name }}");
-                                fullPrice.innerHTML = (1 * {{ goods.price }}).toFixed(2)
-                                var q = 1;
-                                var csrfcookie = function() {
-                                    var cookieValue = null,
-                                        name = 'csrftoken';
-                                    if (document.cookie && document.cookie !== '') {
-                                        var cookies = document.cookie.split(';');
-                                        for (var i = 0; i < cookies.length; i++) {
-                                            var cookie = cookies[i].trim();
-                                            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                                break;
+                        {% if user.is_authenticated %}
+                            <div class="add_to_cart">
+                                <script type="application/javascript">
+                                    var fullPrice = document.getElementById("{{ goods.productId.name }}");
+                                    fullPrice.innerHTML = (1 * {{ goods.price }} ).toFixed(2)
+                                    var q = 1;
+                                    var csrfcookie = function() {
+                                        var cookieValue = null,
+                                            name = 'csrftoken';
+                                        if (document.cookie && document.cookie !== '') {
+                                            var cookies = document.cookie.split(';');
+                                            for (var i = 0; i < cookies.length; i++) {
+                                                var cookie = cookies[i].trim();
+                                                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                    break;
+                                                }
                                             }
                                         }
-                                    }
-                                    console.log("cookieValue", cookieValue);
-                                    return cookieValue;
-                                };
+                                        console.log("cookieValue", cookieValue);
+                                        return cookieValue;
+                                    };
 
-                                function valueChange(quantity) {
-                                    console.log("valueChange", quantity);
-                                    q = quantity;
-                                    fullPrice.innerHTML = (quantity * {{ goods.price }}).toFixed(2);
-                                };
+                                    function valueChange(quantity) {
+                                        console.log("valueChange", quantity);
+                                        q = quantity;
+                                        fullPrice.innerHTML = (quantity * {{ goods.price }}).toFixed(2);
+                                    };
 
-                                function cartItemInc() {
-                                    // Form fields, see IDs above
-                                    const http = new XMLHttpRequest()
-                                    {#http.open('GET', "{% url 'cart:cartItemAdd' goods.id %}")#}
-                                    http.open('POST', "/cart/item/add/{{goods.id}}/"+(q*1).toFixed(0)+"/")
-                                    http.setRequestHeader('Content-type', 'application/json')
-                                    http.setRequestHeader('X-CSRFToken', csrfcookie());
-                                    http.send(JSON.stringify({})) // Make sure to stringify
-                                    http.onload = function() {
-                                        // Do whatever with response
+                                    function cartItemAdd() {
+                                        // Form fields, see IDs above
+                                        const http = new XMLHttpRequest();
+                                        {#http.open('GET', "{% url 'cart:cartItemAdd' goods.id %}")#}
+                                        http.open('POST', "/cart/item/add/{{goods.id}}/"+(q*1).toFixed(0)+"/");
+                                        http.setRequestHeader('Content-type', 'application/json');
+                                        http.setRequestHeader('X-CSRFToken', csrfcookie());
+                                        http.responseType = "json";
+                                        http.send(JSON.stringify({})) // Make sure to stringify
+                                        http.onload = function() {
+                                            let body = this.response;
+                                            console.log('body: ',body);
+                                            {#console.log('cart_id: ',body.cart_id);#}
+                                            {#console.log('itemsCount: ',body.itemsCount);#}
+                                            // Do whatever with response
+                                            $('.shopping-card').attr('data-before',body.itemsCount);
+                                        }
                                     }
-                                }
-                            </script>
-                            <a href="#" class="btn_3" onclick="cartItemInc();">add to cart</a>
-                        </div>
+                                </script>
+                                <a class="btn_3" onclick="cartItemAdd();">add to cart</a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

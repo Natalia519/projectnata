@@ -163,7 +163,7 @@
 {#              </tr>#}
               <tr class="bottom_button">
                 <td>
-                  <a class="btn_1" href="#">Update Cart</a>
+                  <a class="btn_1" href={% url 'cart:index' cart_id|default:0 %}>Update Cart</a>
                 </td>
                 <td></td>
                 <td></td>
@@ -231,8 +231,8 @@
             </tbody>
           </table>
           <div class="checkout_btn_inner float-right">
-            <a class="btn_1" href="#">Continue Shopping</a>
-            <a class="btn_1 checkout_btn_1" href="#">Proceed to LogOut</a>
+            <a class="btn_1" href={% url 'goods:index' %}>Continue Shopping</a>
+{#            <a class="btn_1 checkout_btn_1" href="#">Proceed to LogOut</a>#}
           </div>
         </div>
       </div>

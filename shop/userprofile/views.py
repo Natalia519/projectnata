@@ -39,7 +39,7 @@ class ProfileView(View):
 
         itemsCount = request.session.get("itemsCount", 0)
         cart_id = request.session.get("cart_id", 0)
-        return render(request, self.template_name, {'itemsCount': itemsCount, 'cartId': cart_id})
+        return render(request, self.template_name, {'itemsCount': itemsCount, 'cart_id': cart_id})
 
     @method_decorator(login_required)
     def post(self, request):
