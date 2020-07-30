@@ -75,12 +75,10 @@
                                                 }
                                             }
                                         }
-                                        console.log("cookieValue", cookieValue);
                                         return cookieValue;
                                     };
 
                                     function valueChange(quantity) {
-                                        console.log("valueChange", quantity);
                                         q = quantity;
                                         fullPrice.innerHTML = (quantity * {{ goods.price }}).toFixed(2);
                                     };
@@ -89,17 +87,16 @@
                                         // Form fields, see IDs above
                                         const http = new XMLHttpRequest();
                                         {#http.open('GET', "{% url 'cart:cartItemAdd' goods.id %}")#}
-                                        http.open('POST', "/cart/item/add/{{goods.id}}/"+(q*1).toFixed(0)+"/");
+                                        {#http.open('POST', "/api/item/add/{{goods.id}}/"+(q*1).toFixed(0)+"/");#}
+                                        q = ((q*1).toFixed(0))*1;
+                                        http.open('POST', '{% url 'api1:item_add_to_cart' %}');
                                         http.setRequestHeader('Content-type', 'application/json');
                                         http.setRequestHeader('X-CSRFToken', csrfcookie());
                                         http.responseType = "json";
-                                        http.send(JSON.stringify({})) // Make sure to stringify
+                                        http.send(JSON.stringify({goods_id: {{goods.id}}, quantity:q})) // Make sure to stringify
                                         http.onload = function() {
                                             let body = this.response;
                                             console.log('body: ',body);
-                                            {#console.log('cart_id: ',body.cart_id);#}
-                                            {#console.log('itemsCount: ',body.itemsCount);#}
-                                            // Do whatever with response
                                             $('.shopping-card').attr('data-before',body.itemsCount);
                                         }
                                     }

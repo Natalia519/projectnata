@@ -50,10 +50,15 @@
                     }
                     {#skm_LockScreen('Updating data on backend...');#}
                     const http = new XMLHttpRequest();
-                    http.open('POST', '/cart/'+(quantity*1).toFixed(0)+'/item/incdec/'+(goodsId*1).toFixed(0)+'/');
+                    goodsId = (goodsId*1).toFixed(0);
+                    quantity = (quantity*1).toFixed(0);
+                    var url_path = '{% url 'api1:cart_item_inc_dec' 12345678091234567809 12345678901234567890 %}';
+                    url_path = url_path.replace('12345678091234567809', goodsId.toString());
+                    url_path = url_path.replace('12345678901234567890', quantity.toString());
+                    http.open('POST', url_path);
                     http.setRequestHeader('Content-type', 'application/json');
                     http.setRequestHeader('X-CSRFToken', csrfcookie());
-                    http.send(JSON.stringify({})); // Make sure to stringify
+                    http.send(JSON.stringify({goods_id:goodsId, quantity:quantity})); // Make sure to stringify
 
                     http.onload = function() {
                         let r = JSON.parse(http.response);
