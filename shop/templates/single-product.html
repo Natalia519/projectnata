@@ -29,20 +29,11 @@
                     <div class="single_product_img">
                         <img src="{{ goods.productId.photo_url }}" alt="#" class="img-fluid">
                     </div>
-                    <!--            <div class="single_product_img">-->
-                    <!--              <img src="assets/img/product/single_product.png" alt="#" class="img-fluid">-->
-                    <!--            </div>-->
-                    <!--            <div class="single_product_img">-->
-                    <!--              <img src="assets/img/product/single_product.png" alt="#" class="img-fluid">-->
-                    <!--            </div>-->
                 </div>
             </div>
             <div class="col-lg-8">
                 <div class="single_product_text text-center">
                     <h3>{{ goods.productId.name }}</h3>
-{#                    <p>#}
-{#                        {{ goods.productId.description }}#}
-{#                    </p>#}
                     <p>
                         {{ goods.price }}
                     </p>
@@ -86,14 +77,12 @@
                                     function cartItemAdd() {
                                         // Form fields, see IDs above
                                         const http = new XMLHttpRequest();
-                                        {#http.open('GET', "{% url 'cart:cartItemAdd' goods.id %}")#}
-                                        {#http.open('POST', "/api/item/add/{{goods.id}}/"+(q*1).toFixed(0)+"/");#}
                                         q = ((q*1).toFixed(0))*1;
-                                        http.open('POST', '{% url 'api1:item_add_to_cart' %}');
+                                        http.open('POST', "{% url 'api1:item_add_to_cart' %}");
                                         http.setRequestHeader('Content-type', 'application/json');
                                         http.setRequestHeader('X-CSRFToken', csrfcookie());
                                         http.responseType = "json";
-                                        http.send(JSON.stringify({goods_id: {{goods.id}}, quantity:q})) // Make sure to stringify
+                                        http.send(JSON.stringify({goods_id: {{ goods.id }}, quantity:q})) // Make sure to stringify
                                         http.onload = function() {
                                             let body = this.response;
                                             console.log('body: ',body);
@@ -110,23 +99,4 @@
         </div>
     </div>
 </div>
-<!--================End Single Product Area =================-->
-<!-- subscribe part here -->
-<!--   <section class="subscribe_part section_padding">-->
-<!--      <div class="container">-->
-<!--          <div class="row justify-content-center">-->
-<!--              <div class="col-lg-8">-->
-<!--                  <div class="subscribe_part_content">-->
-<!--                      <h2>Get promotions & updates!</h2>-->
-<!--                      <p>Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources credibly innovate granular internal .</p>-->
-<!--                      <div class="subscribe_form">-->
-<!--                          <input type="email" placeholder="Enter your mail">-->
-<!--                          <a href="#" class="btn_1">Subscribe</a>-->
-<!--                      </div>-->
-<!--                  </div>-->
-<!--              </div>-->
-<!--          </div>-->
-<!--      </div>-->
-<!--  </section>-->
-<!-- subscribe part end -->
 {% endblock %}

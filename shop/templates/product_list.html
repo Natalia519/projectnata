@@ -24,140 +24,63 @@
     <section class="product_list section_padding">
         <div class="container">
             <div class="row">
-{#                <div class="col-md-4">#}
-{#                    <div class="product_sidebar">#}
-{#                        <div class="single_sedebar">#}
-{#                            <form action="#">#}
-{#                                <input type="text" name="#" placeholder="Search keyword">#}
-{#                                <i class="ti-search"></i>#}
-{#                            </form>#}
-{#                        </div>#}
-{#                        <div class="single_sedebar">#}
-{#                            <div class="select_option">#}
-{#                                <div class="select_option_list">Category <i class="right fas fa-caret-down"></i> </div>#}
-{#                                <div class="select_option_dropdown">#}
-{#                                    {% for goods in goods_list %}#}
-{#                                        <p><a href="#">{{ goods.productId.name }}</a></p>#}
-{#                                    {% endfor %}#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="single_sedebar">#}
-{#                            <div class="select_option">#}
-{#                                <div class="select_option_list">Type <i class="right fas fa-caret-down"></i> </div>#}
-{#                                <div class="select_option_dropdown">#}
-{#                                    <p><a href="#">Indoor</a></p>#}
-{#                                    <p><a href="#">Outdoor</a></p>#}
-{#                                    <p><a href="#">Home decorations</a></p></div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-md-8">#}
-                    <div class="product_list">
-                        <div class="row">
-                            {% for goods in goods_list %}
-                            <div class="col-lg-6 col-sm-6">
-                                <a href="{% url 'goods:details' goods.id %}">
-                                    <div class="single_product_item">
-                                        <img src="{{ goods.productId.image.url }}" width="250" height="250" alt="" class="img-fluid">
-                                        <h3> {{ goods.productId.name }} </h3>
-                                        <p>{{ goods.price }}</p>
-                                    </div>
-                                </a>
-                            </div>
-                            {% endfor %}
-                        </div>
-{#                        <div class="load_more_btn text-center">#}
-{#                            <a href="#" class="btn_3">Load More</a>#}
-{#                        </div>#}
+                <div class="product_list">
+                    <div class="row">
                     </div>
-{#                </div>#}
+                </div>
             </div>
         </div>
     </section>
-    <!-- product list part end-->
-    
-{#    <!-- client review part here -->#}
-{#    <section class="client_review">#}
-{#        <div class="container">#}
-{#            <div class="row justify-content-center">#}
-{#                <div class="col-lg-8">#}
-{#                    <div class="client_review_slider owl-carousel">#}
-{#                        <div class="single_client_review">#}
-{#                            <div class="client_img">#}
-{#                                <img src="assets/img/client.png" alt="#">#}
-{#                            </div>#}
-{#                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>#}
-{#                            <h5>- Micky Mouse</h5>#}
-{#                        </div>#}
-{#                        <div class="single_client_review">#}
-{#                            <div class="client_img">#}
-{#                                <img src="{% static 'assets/img/client_1.png' %}" alt=" ">#}
-{#                            </div>#}
-{#                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>#}
-{#                            <h5>- Micky Mouse</h5>#}
-{#                        </div>#}
-{#                        <div class="single_client_review">#}
-{#                            <div class="client_img">#}
-{#                                <img src="assets/img/client_2.png" alt="#">#}
-{#                            </div>#}
-{#                            <p>"Working in conjunction with humanitarian aid agencies, we have supported programmes to help alleviate human suffering.</p>#}
-{#                            <h5>- Micky Mouse</h5>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </section>#}
-{#    <!-- client review part end -->#}
-{##}
-{#    <!-- Shop Method Start-->#}
-{#    <div class="shop-method-area section-padding30">#}
-{#        <div class="container">#}
-{#            <div class="row d-flex justify-content-between">#}
-{#                <div class="col-xl-3 col-lg-3 col-md-6">#}
-{#                    <div class="single-method mb-40">#}
-{#                        <i class="ti-package"></i>#}
-{#                        <h6>Free Shipping Method</h6>#}
-{#                        <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="col-xl-3 col-lg-3 col-md-6">#}
-{#                    <div class="single-method mb-40">#}
-{#                        <i class="ti-unlock"></i>#}
-{#                        <h6>Secure Payment System</h6>#}
-{#                        <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>#}
-{#                    </div>#}
-{#                </div> #}
-{#                <div class="col-xl-3 col-lg-3 col-md-6">#}
-{#                    <div class="single-method mb-40">#}
-{#                        <i class="ti-reload"></i>#}
-{#                        <h6>Secure Payment System</h6>#}
-{#                        <p>aorem ixpsacdolor sit ameasecur adipisicing elitsf edasd.</p>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#    <!-- Shop Method End-->#}
-{##}
-{#    <!-- subscribe part here -->#}
-{#    <section class="subscribe_part section_padding">#}
-{#        <div class="container">#}
-{#            <div class="row justify-content-center">#}
-{#                <div class="col-lg-8">#}
-{#                    <div class="subscribe_part_content">#}
-{#                        <h2>Get promotions & updates!</h2>#}
-{#                        <p>Seamlessly empower fully researched growth strategies and interoperable internal or “organic” sources credibly innovate granular internal .</p>#}
-{#                        <div class="subscribe_form">#}
-{#                            <input type="email" placeholder="Enter your mail">#}
-{#                            <a href="#" class="btn_1">Subscribe</a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </section>#}
-{#    <!-- subscribe part end -->#}
+
+<script type="application/javascript">
+    var csrfcookie = function() {
+        var cookieValue = null,
+            name = 'csrftoken';
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    };
+
+    function getGoods() {
+        const http = new XMLHttpRequest();
+        http.open('GET', "{% url 'api1:get_all_goods' %}");
+        http.setRequestHeader('Content-type', 'application/json');
+        http.setRequestHeader('X-CSRFToken', csrfcookie());
+        http.send();
+
+        http.onload = function() {
+            let r = JSON.parse(http.response);
+            console.log(r);
+            r.products.forEach(item => {
+              var html = `<div class="col-lg-6 col-sm-6">
+                            <a href="{% url 'goods:details' 12345678901234567890 %}">
+                                <div class="single_product_item">
+                                    <img src="goods.productId.image.url" width="250" height="250" alt="" class="img-fluid">
+                                    <h3> goods.productId.name </h3>
+                                    <p> goods.price </p>
+                                </div>
+                            </a>
+                        </div>`;
+              html = html.replace(/12345678901234567890/g, (item.id).toString());
+              html = html.replace(/goods.productId.image.url/g, item.photo_url);
+              html = html.replace(/goods.productId.name/g, item.name);
+              html = html.replace(/goods.price/g, (1*item.price).toFixed(2).toString());
+              html = $.parseHTML(html);
+              $('div.product_list div.row').append(html);
+            });
+        }
+    };
+
+    window.onload = getGoods();
+
+</script>
+
 {% endblock %}

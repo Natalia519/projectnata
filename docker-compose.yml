@@ -17,11 +17,11 @@ services:
       POSTGRES_DB: "internet-shop"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
-    volumes:
-      - "./db-data:/var/lib/postgresql/data"
-#  mail:
-#    image: python:3.8
-#    container_name: mail
-#    expose:
-#      - "1025"
-#    command: python -m smtpd -c DebuggingServer -n 0.0.0.0:1025
+#    volumes:
+#      - "./db-data:/var/lib/postgresql/data"
+  mail:
+    image: python:3.8
+    container_name: mail
+    expose:
+      - "1025"
+    command: python -m smtpd -c DebuggingServer -n 0.0.0.0:1025

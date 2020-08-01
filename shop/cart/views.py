@@ -5,7 +5,7 @@ from django.template.defaultfilters import register
 from django.http import HttpResponse, JsonResponse
 from django.views import View
 from .models import Cart, CartItem, CartState
-
+from userprofile.models import User
 from goods.models import Goods, Product
 from django.db.models import ObjectDoesNotExist
 
@@ -34,10 +34,19 @@ class CartView(View):
             else:
                 index = 0
                 carts_all = Cart.objects.filter(userId=user_id)
-                for v in carts_all:
-                    if index < v.pk:
-                        index = v.pk
-                        cart = v
+                if len(carts_all) > 0:
+                    for v in carts_all:
+                        if index < v.pk:
+                            index = v.pk
+                            cart = v
+                else:
+                    cart = Cart(
+                        docStateId=CartState.objects.get(pk=0),
+                        userId=User.objects.get(pk=request.user.id),
+                        employeeUserId=User.objects.get(pk=request.user.id),
+                        comment="New order")
+                    cart.save()
+
                 cart_id = cart.pk
         except ObjectDoesNotExist as e:
             logger.debug("exception: %s", e)
