@@ -86,9 +86,9 @@ def get_all_goods(request):
             logger.debug("--== get_all_goods ==-- %s", item)
             goods = Goods.objects.get(productId=item.pk)
             products_list["products"].append({"id": item.pk,
-                                            "name": item.name,
-                                            "photo_url": item.photo_url,
-                                            "price": goods.price})
+                                              "name": item.name,
+                                              "photo_url": item.photo_url,
+                                              "price": goods.price})
         return JsonResponse(products_list, content_type='application/json')
     if request.method == "POST":
         # curl -X POST \
