@@ -55,16 +55,6 @@ def index(request):
     #     return HttpResponsePermanentRedirect("/accounts/login/")
         return render(request, 'index.html', {'itemsCount': itemsCount, 'cart_id': cart_id})
 
-# class IndexView(generic.ListView):
-#     template_name = 'index.html'
-#
-#     def get_queryset(self):
-#         """
-#         Return the last five published questions (not including those set to be
-#         published in the future).
-#         """
-#         return ""
-
 
 class ContactsView(generic.ListView):
     template_name = 'index.html'

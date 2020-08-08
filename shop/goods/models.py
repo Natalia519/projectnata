@@ -31,7 +31,6 @@ class ProductPropsValue(models.Model):
 
 class Goods(models.Model):
     productId = models.ForeignKey(Product, on_delete=models.CASCADE)
-    # slug = models.SlugField(unique=True)
     quantity = models.DecimalField(max_digits=5, decimal_places=3)
     price = models.DecimalField(max_digits=8, decimal_places=2)
 

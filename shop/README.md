@@ -35,3 +35,12 @@ https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-u
 ## Stage - Logging
 
 https://docs.djangoproject.com/en/3.0/topics/logging/
+
+## Pagination
+
+https://docs.djangoproject.com/en/3.0/topics/pagination/
+
+## Security in Django (CSRF)
+
+https://docs.djangoproject.com/en/3.0/topics/security/
+
