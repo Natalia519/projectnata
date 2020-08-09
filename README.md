@@ -22,7 +22,7 @@ Download and istall:
 
 # Usage
 1) Create an Account, New Project and give a Name to your Repository
- on GitHub (the project can be uploaded and saved there)
+ on GitHub (your project can be uploaded and saved there later)
 
 2) Use docker-compose up command to built and run a container:
 docker-compose up
@@ -31,13 +31,14 @@ docker-compose up
 python manage.py migrate
 
 4) Create SUPERUSER. Use CLI and type a command:
-python manage.py createsuperuser
+
+   python manage.py createsuperuser
 
 Now You can use Django Administration at
 http://localhost:8000/admin/
 
 When you successfully have done all mentioned above, 
-clone the project or download it as a zip file onto you computer.
+clone the projectnata or download it as a zip file onto you computer.
 
 Unpack and run it.
 You should see the website like this:
@@ -85,7 +86,7 @@ views.py.
 
 
 # Authors and acknowledgment
-The project was done with the help and supervision of 
+The project was done with the help and under supervision of 
 ITStep Academy (Kharkiv office) teacher, Puchkov Yuriy, by student Natalia Shyriaieva
 
 Thanks to my family for supporting my efforts in DevOps.

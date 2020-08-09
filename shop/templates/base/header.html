@@ -30,7 +30,8 @@
                             <div class="header-info-right">
                                 <ul>
                                     {% if user.is_staff %}
-                                        <li><a href={% url 'userprofile:index' %}>My Account </a></li>
+                                        <li><a href={% url 'admin:index' %}>Django Administration</a></li>
+{#                                        <li><a href={% url 'userprofile:index' %}>My Account </a></li>#}
 {#                                    {% else %}#}
 {#                                        <li><a href={% url 'userprofile:index' %}>My Account </a></li>#}
                                     {% endif %}
@@ -40,8 +41,9 @@
 {#                                    <li><a href={% url 'cart:index' %}>Shopping</a></li>#}
 {#                                    <li><a href={% url 'cart:index' %}>Cart</a></li>#}
                                     {% if user.is_authenticated %}
-                                       <li><a href={% url 'cart:index' cart_id|default:0 %}>Cart</a></li>
-                                       <li><a href={% url 'logout' %}?next={{ request.path }}>LogOut</a></li>
+                                        <li><a href={% url 'userprofile:index' %}>My Account </a></li>
+                                        <li><a href={% url 'cart:index' cart_id|default:0 %}>Cart</a></li>
+                                        <li><a href={% url 'logout' %}?next={{ request.path }}>LogOut</a></li>
                                     {% endif %}
                                 </ul>
                             </div>
