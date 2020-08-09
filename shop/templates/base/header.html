@@ -31,15 +31,8 @@
                                 <ul>
                                     {% if user.is_staff %}
                                         <li><a href={% url 'admin:index' %}>Django Administration</a></li>
-{#                                        <li><a href={% url 'userprofile:index' %}>My Account </a></li>#}
-{#                                    {% else %}#}
-{#                                        <li><a href={% url 'userprofile:index' %}>My Account </a></li>#}
                                     {% endif %}
-{#                                    <li><a href={% url 'goods:index' %}>Wish List </a></li>#}
-                                    <li><a href={% url 'goods:index' %}>Shopping</a></li>
-{#                                    <li><a href={% url 'goods:index' %}>Wish List </a></li>#}
-{#                                    <li><a href={% url 'cart:index' %}>Shopping</a></li>#}
-{#                                    <li><a href={% url 'cart:index' %}>Cart</a></li>#}
+                                        <li><a href={% url 'goods:index' %}>Shopping</a></li>
                                     {% if user.is_authenticated %}
                                         <li><a href={% url 'userprofile:index' %}>My Account </a></li>
                                         <li><a href={% url 'cart:index' cart_id|default:0 %}>Cart</a></li>
